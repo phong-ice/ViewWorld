@@ -18,15 +18,9 @@ import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
-
-    private var downloadID: Long = -1
-    val imageUri = "https://i.imgur.com/tGbaZCY.jpg"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-        Picasso.get().load(imageUri).into(imageView);
         startActivity(Intent(this, Home::class.java))
 
     }

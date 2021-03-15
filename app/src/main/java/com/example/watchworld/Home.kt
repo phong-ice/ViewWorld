@@ -1,11 +1,13 @@
 package com.example.watchworld
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.watchworld.Adapter.AdapterPictureHome
@@ -24,6 +26,7 @@ class Home : AppCompatActivity() {
     lateinit var adapterPicture: AdapterPictureHome
     lateinit var listTag: ArrayList<String>
     lateinit var listTagBackup: ArrayList<String>
+    var backPressTime:Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,9 @@ class Home : AppCompatActivity() {
         }
 
         initSearchAuto(this)
+        swipe_update.setOnRefreshListener {
+            swipe_update.isRefreshing = false
+        }
     }
 
     private fun initSearchAuto(context: Context) {
@@ -111,6 +117,17 @@ class Home : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        if (backPressTime + 2000 > System.currentTimeMillis()){
+            finish()
+            System.exit(0)
+        }else{
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
+        }
+        backPressTime = System.currentTimeMillis()
     }
 
 }
